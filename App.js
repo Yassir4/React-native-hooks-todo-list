@@ -6,52 +6,41 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 
 
-export default class App extends Component {
-  state={
-      todo: [{
-          text: '',
-      }],
-    text: 'Create a Task'
-  }
-  handleAddTodo = () => {
-    var newTask = [{
-      text: this.state.text
-    }]
-    this.setState((state) => ({
-      todo: [ ...state.todo, ...newTask]
-    }),() => {
-      console.log(this.state.todo)
-      console.log(this.state.newTask)
-    })
+ const  App = () => {
+  const [value,setValue] = useState('Add a todo')
+  const[todos,setTodos] = useState([])
 
+  handleAddTodo = () => {
+    console.log('fired')
+    setTodos([...todos, value])
+    setValue('')
   }
-  render() {
+
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Todo list</Text>
         <TextInput
           style={{ height: 20, borderColor: 'gray', borderWidth: 1, width: '50%' }}
-          onChangeText={(text) => this.setState({ text })}
-          placeholder={this.state.text}
+          onChangeText={(value) => setValue(value)}
+          placeholder={value}
         />
         <Button 
           title="Add"
-          onPress={this.handleAddTodo}
+          onPress={() => handleAddTodo()}
         />
         {
-          this.state.todo.map((task) => (
-            <Text>{task.text}</Text>
+          todos.map((task) => (
+            <Text>{task}</Text>
           ))
         }
       </View>
-    );
-  }
+    )
 }
-
+export default App
 const styles = StyleSheet.create({
   container: {
     flex: 1,
