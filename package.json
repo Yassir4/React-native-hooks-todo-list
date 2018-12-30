@@ -10,7 +10,8 @@
     "@brunolemos/react-native": "npm:@brunolemos/react-native",
     "react": "16.7.0-alpha.2",
     "react-native": "npm:@brunolemos/react-native",
-    "react-native-hooks": "^0.0.6"
+    "react-native-hooks": "^0.0.6",
+    "react-native-vector-icons": "^6.1.0"
   },
   "devDependencies": {
     "@types/react": "^16.7.18",
@@ -27,4 +28,3 @@
     "scheduler": "0.12.0-alpha.3"
   }
 }
-
