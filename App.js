@@ -8,20 +8,29 @@
 
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button, ImageBackground, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Feather';
 
 
 
 const App = () => {
   const [value, setValue] = useState('')
   const [todos, setTodos] = useState([])
+  const [checked, setChecked] = useState(false)
 
   handleAddTodo = () => {
     console.log('fired')
     setTodos([...todos, value])
     setValue('')
   }
-
+  let check_icon = null
+  // if (checked) {
+  //   check_icon = <Icon name="check" size={30} color="#900" style={{ marginLeft: 15 }} />
+  // }
+  !checked
+    ?
+    check_icon = <Icon name="square" size={30} color="#900" style={{ marginLeft: 15 }} />
+    :
+    check_icon = <Icon name="check" size={30} color="#900" style={{ marginLeft: 15 }} />
   return (
     <ImageBackground style={{ width: '100%', height: '100%', flex: 1 }} source={require('./BackgroudColor.jpg')}>
       <View style={styles.container}>
@@ -47,8 +56,7 @@ const App = () => {
               fontSize: 25,
               fontWeight: 'bold',
               color: 'white',
-              
-
+              paddingLeft: 10
             }}
             multiline={true}
             onChangeText={(value) => setValue(value)}
@@ -57,13 +65,24 @@ const App = () => {
             value={value}
           />
           <TouchableOpacity onPress={() => handleAddTodo()}>
-            <Icon name="md-add" size={30} color="#900" style={{ marginLeft: 15 }} />
+            <Icon name="plus" size={30} color="#900" style={{ marginLeft: 15 }} />
           </TouchableOpacity>
         </View>
         {
           todos.map((task) => (
             <View style={styles.taskWrapper}>
-              <Text style={styles.task}>{task}</Text>
+              <TouchableOpacity onPress={() => setChecked(!checked)}>
+                {check_icon}
+              </TouchableOpacity>
+              <View>
+                {/* <View style={{
+                  borderBottomColor: 'black',
+                  borderBottomWidth: 1,
+                  top: 2,
+                  position: 'absolute'
+                }}></View> */}
+                <Text style={styles.task}>{task}</Text>
+              </View>
             </View>
           ))
         }
@@ -75,23 +94,25 @@ export default App
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: '#F5FCFF',
   },
   taskWrapper: {
+    marginTop: '5%',
+    flexDirection: 'row',
+    // alignItems: 'baseline',
     borderColor: '#D0D0D0',
     borderBottomWidth: 0.5,
     width: '100%',
-    paddingBottom: 20,
-    paddingLeft: 10
+    minHeight: 40,
   },
   task: {
-    height: 20,
+    paddingBottom: 20,
+    paddingLeft: 10,
+    paddingTop: 6,
     borderColor: 'white',
-    borderBottomWidth: 10,
+    borderBottomWidth: 1,
     // width: '100%',
-    marginTop: '5%',
+    // marginBottom: 4,
     fontSize: 17,
     fontWeight: 'bold',
     color: 'white',
