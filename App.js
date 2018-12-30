@@ -7,7 +7,9 @@
  */
 
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, ImageBackground, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+
 
 
 const App = () => {
@@ -25,30 +27,39 @@ const App = () => {
       <View style={styles.container}>
         <Text style={{ marginTop: '10%', fontSize: 16, color: 'white' }}>Today</Text>
         {/* <Text style={styles.welcome}>Todo list</Text> */}
-        <TextInput
-          style={{
-            height: 20,
-            borderColor: 'rgb(222,222,222)',
-            borderBottomWidth: 1,
-            width: '100%',
-            minHeight: '7%',
-            marginTop: '5%',
-            fontSize: 25,
-            fontWeight: 'bold',
-            color: 'white',
-            paddingBottom: 15
 
-          }}
-          multiline={true}
-          onChangeText={(value) => setValue(value)}
-          placeholder={'Do it now!'}
-          placeholderTextColor="white"
-          value={value}
-        />
-        <Button
-          title="Add"
-          onPress={() => handleAddTodo()}
-        />
+
+        <View style={{
+          flexDirection: 'row',
+          alignItems: 'baseline',
+          borderColor: 'rgb(222,222,222)',
+          borderBottomWidth: 1,
+          paddingRight: 10,
+          paddingBottom: 5
+        }}>
+          <TextInput
+            style={{
+              height: 20,
+              // width: '100%',
+              flex: 1,
+              minHeight: '7%',
+              marginTop: '5%',
+              fontSize: 25,
+              fontWeight: 'bold',
+              color: 'white',
+              
+
+            }}
+            multiline={true}
+            onChangeText={(value) => setValue(value)}
+            placeholder={'Do it now!'}
+            placeholderTextColor="white"
+            value={value}
+          />
+          <TouchableOpacity onPress={() => handleAddTodo()}>
+            <Icon name="md-add" size={30} color="#900" style={{ marginLeft: 15 }} />
+          </TouchableOpacity>
+        </View>
         {
           todos.map((task) => (
             <View style={styles.taskWrapper}>
