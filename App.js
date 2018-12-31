@@ -18,14 +18,17 @@ const App = () => {
   const [checked, setChecked] = useState(false)
 
   handleAddTodo = () => {
-    console.log('fired')
-    setTodos([...todos, value])
+    setTodos([...todos, { text: value, key: Date.now() }])
     setValue('')
   }
-  let check_icon = null
-  // if (checked) {
-  //   check_icon = <Icon name="check" size={30} color="#900" style={{ marginLeft: 15 }} />
+  handleDeleteTodo = () => {
+    setTodos()
+  }
+
+  // handleChecked(){
+  //   return null
   // }
+  let check_icon = null
   !checked
     ?
     check_icon = <Icon name="square" size={30} color="#900" style={{ marginLeft: 15 }} />
@@ -36,8 +39,6 @@ const App = () => {
       <View style={styles.container}>
         <Text style={{ marginTop: '10%', fontSize: 16, color: 'white' }}>Today</Text>
         {/* <Text style={styles.welcome}>Todo list</Text> */}
-
-
         <View style={{
           flexDirection: 'row',
           alignItems: 'baseline',
@@ -70,7 +71,7 @@ const App = () => {
         </View>
         {
           todos.map((task) => (
-            <View style={styles.taskWrapper}>
+            <View key={task.key} style={styles.taskWrapper}>
               <TouchableOpacity onPress={() => setChecked(!checked)}>
                 {check_icon}
               </TouchableOpacity>
@@ -81,8 +82,9 @@ const App = () => {
                   top: 2,
                   position: 'absolute'
                 }}></View> */}
-                <Text style={styles.task}>{task}</Text>
+                <Text style={styles.task}>{task.text}</Text>
               </View>
+              <Icon name="trash-2" size={30} color="#900" style={{ marginLeft: 'auto' }} />
             </View>
           ))
         }
