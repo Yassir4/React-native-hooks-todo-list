@@ -17,15 +17,19 @@ const Task = (props) => (
                 borderBottomColor: 'white',
                 borderBottomWidth: 4,
                 marginLeft: 10,
-                //   top: 2,
                 width: '100%',
                 position: 'absolute',
                 marginTop: 15
-                // zIndex: 1
             }}></View>}
             <Text style={styles.task}>{props.text}</Text>
         </View>
-        <Icon name="trash-2" size={30} color="#900" style={{ marginLeft: 'auto' }} />
+        <Icon
+            name="trash-2"
+            size={30}
+            color="#900"
+            style={{ marginLeft: 'auto' }}
+            onPress={props.delete}
+        />
     </View>
 )
 
@@ -35,7 +39,6 @@ const styles = StyleSheet.create({
     taskWrapper: {
         marginTop: '5%',
         flexDirection: 'row',
-        // alignItems: 'baseline',
         borderColor: '#D0D0D0',
         borderBottomWidth: 0.5,
         width: '100%',
@@ -48,7 +51,6 @@ const styles = StyleSheet.create({
         marginTop: 6,
         borderColor: 'white',
         borderBottomWidth: 1,
-        // marginBottom: 4,
         fontSize: 17,
         fontWeight: 'bold',
         color: 'white',

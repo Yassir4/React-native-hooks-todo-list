@@ -1,39 +1,34 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, ImageBackground, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, ImageBackground, TouchableOpacity, ShadowPropTypesIOS, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-
+import Task from './Task'
 
 
 const App = () => {
   const [value, setValue] = useState('')
   const [todos, setTodos] = useState([])
-  const [checked, setChecked] = useState(false)
 
   handleAddTodo = () => {
-    setTodos([...todos, { text: value, key: Date.now() }])
+    setTodos([...todos, { text: value, key: Date.now(), checked: false }])
     setValue('')
   }
-  handleDeleteTodo = () => {
-    setTodos()
+
+  handleDeleteTodo = (id) => {
+    setTodos(
+      todos.filter((todo) => {
+        if (todo.key !== id) return true
+      })
+    )
   }
 
-  // handleChecked(){
-  //   return null
-  // }
-  let check_icon = null
-  !checked
-    ?
-    check_icon = <Icon name="square" size={30} color="#900" style={{ marginLeft: 15 }} />
-    :
-    check_icon = <Icon name="check" size={30} color="#900" style={{ marginLeft: 15 }} />
+  handleChecked = (id) => {
+    setTodos(
+      todos.map((todo) => {
+        if (todo.key === id) todo.checked = !todo.checked;
+        return todo;
+      })
+    )
+  }
   return (
     <ImageBackground style={{ width: '100%', height: '100%', flex: 1 }} source={require('./BackgroudColor.jpg')}>
       <View style={styles.container}>
@@ -50,7 +45,6 @@ const App = () => {
           <TextInput
             style={{
               height: 20,
-              // width: '100%',
               flex: 1,
               minHeight: '7%',
               marginTop: '5%',
@@ -69,25 +63,20 @@ const App = () => {
             <Icon name="plus" size={30} color="#900" style={{ marginLeft: 15 }} />
           </TouchableOpacity>
         </View>
-        {
-          todos.map((task) => (
-            <View key={task.key} style={styles.taskWrapper}>
-              <TouchableOpacity onPress={() => setChecked(!checked)}>
-                {check_icon}
-              </TouchableOpacity>
-              <View>
-                {/* <View style={{
-                  borderBottomColor: 'black',
-                  borderBottomWidth: 1,
-                  top: 2,
-                  position: 'absolute'
-                }}></View> */}
-                <Text style={styles.task}>{task.text}</Text>
-              </View>
-              <Icon name="trash-2" size={30} color="#900" style={{ marginLeft: 'auto' }} />
-            </View>
-          ))
-        }
+        <ScrollView>
+          {
+            todos.map((task) => (
+              <Task
+                text={task.text}
+                key={task.key}
+                checked={task.checked}
+                setChecked={() => handleChecked(task.key)}
+                delete={() => handleDeleteTodo(task.key)}
+              />
+            ))
+
+          }
+        </ScrollView>
       </View>
     </ImageBackground>
   )
@@ -105,6 +94,7 @@ const styles = StyleSheet.create({
     borderColor: '#D0D0D0',
     borderBottomWidth: 0.5,
     width: '100%',
+    alignItems: 'stretch',
     minHeight: 40,
   },
   task: {
@@ -113,8 +103,6 @@ const styles = StyleSheet.create({
     paddingTop: 6,
     borderColor: 'white',
     borderBottomWidth: 1,
-    // width: '100%',
-    // marginBottom: 4,
     fontSize: 17,
     fontWeight: 'bold',
     color: 'white',
