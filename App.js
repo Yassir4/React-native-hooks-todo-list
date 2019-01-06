@@ -9,8 +9,10 @@ const App = () => {
   const [todos, setTodos] = useState([])
 
   handleAddTodo = () => {
-    setTodos([...todos, { text: value, key: Date.now(), checked: false }])
-    setValue('')
+    if (value.length > 0) {
+      setTodos([...todos, { text: value, key: Date.now(), checked: false }])
+      setValue('')
+    }
   }
 
   handleDeleteTodo = (id) => {
@@ -33,26 +35,9 @@ const App = () => {
     <ImageBackground style={{ width: '100%', height: '100%', flex: 1 }} source={require('./BackgroudColor.jpg')}>
       <View style={styles.container}>
         <Text style={{ marginTop: '10%', fontSize: 16, color: 'white' }}>Today</Text>
-        {/* <Text style={styles.welcome}>Todo list</Text> */}
-        <View style={{
-          flexDirection: 'row',
-          alignItems: 'baseline',
-          borderColor: 'rgb(222,222,222)',
-          borderBottomWidth: 1,
-          paddingRight: 10,
-          paddingBottom: 5
-        }}>
+        <View style={styles.textInputContainer}>
           <TextInput
-            style={{
-              height: 20,
-              flex: 1,
-              minHeight: '7%',
-              marginTop: '5%',
-              fontSize: 25,
-              fontWeight: 'bold',
-              color: 'white',
-              paddingLeft: 10
-            }}
+            style={styles.textInput}
             multiline={true}
             onChangeText={(value) => setValue(value)}
             placeholder={'Do it now!'}
@@ -87,6 +72,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
+  textInput: {
+    height: 20,
+    flex: 1,
+    minHeight: '7%',
+    marginTop: '5%',
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: 'white',
+    paddingLeft: 10
+  },
   taskWrapper: {
     marginTop: '5%',
     flexDirection: 'row',
@@ -106,5 +101,13 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: 'bold',
     color: 'white',
+  },
+  textInputContainer: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    borderColor: 'rgb(222,222,222)',
+    borderBottomWidth: 1,
+    paddingRight: 10,
+    paddingBottom: 5
   }
 });

@@ -13,14 +13,7 @@ const Task = (props) => (
         </TouchableOpacity>
 
         <View>
-            {props.checked && <View style={{
-                borderBottomColor: 'white',
-                borderBottomWidth: 4,
-                marginLeft: 10,
-                width: '100%',
-                position: 'absolute',
-                marginTop: 15
-            }}></View>}
+            {props.checked && <View style={styles.verticalLine}></View>}
             <Text style={styles.task}>{props.text}</Text>
         </View>
         <Icon
@@ -39,8 +32,8 @@ const styles = StyleSheet.create({
     taskWrapper: {
         marginTop: '5%',
         flexDirection: 'row',
-        borderColor: '#D0D0D0',
-        borderBottomWidth: 0.5,
+        borderColor: '#FFFFFF',
+        borderBottomWidth: 1.5,
         width: '100%',
         alignItems: 'stretch',
         minHeight: 40,
@@ -49,10 +42,18 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
         paddingLeft: 10,
         marginTop: 6,
-        borderColor: 'white',
+        borderColor: '#F0F0F0',
         borderBottomWidth: 1,
         fontSize: 17,
         fontWeight: 'bold',
         color: 'white',
+    },
+    verticalLine: {
+        borderBottomColor: 'white',
+        borderBottomWidth: 4,
+        marginLeft: 10,
+        width: '100%',
+        position: 'absolute',
+        marginTop: 15
     }
 })
