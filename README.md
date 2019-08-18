@@ -9,7 +9,7 @@ Check the tutorial [here](https://medium.com/@hartaniyassir/build-a-todo-app-in-
 First, clone the repo
 
 ```
-$ git remote add origin https://github.com/Yassir4/todo-app.git
+$ git clone https://github.com/Yassir4/todo-app.git
 ```
 
 Next, load all the dependencies  
